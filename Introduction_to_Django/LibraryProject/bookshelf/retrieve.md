@@ -3,7 +3,7 @@
 ### Python Command
 
 ```python
-from your_app_name.models import Book
+from bookshelf.models import Book
 book = Book.objects.get(title="1984")
 print(book.title)
 print(book.author)
