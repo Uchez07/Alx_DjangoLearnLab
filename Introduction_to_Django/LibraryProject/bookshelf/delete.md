@@ -1,4 +1,3 @@
-
 ## Delete Operation
 
 ### Python Command
