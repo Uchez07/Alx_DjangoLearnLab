@@ -8,9 +8,14 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.decorators import user_passes_test
 from .models import UserProfile
+from django.http import HttpResponse
 
 
 # Create your views here.
+def home_view(request):
+    return HttpResponse("Welcome to the Library System Homepage!")
+
+
 def list_book(request):
     books = Book.objects.select_related('author').all()
     return render(request, 'relationship_app/list_books.html', "Book.objects.all()")
@@ -69,3 +74,6 @@ def librarian_view(request):
 @user_passes_test(is_member)
 def member_view(request):
     return render(request, 'relationship_app/member_view.html', {'user': request.user})
+
+
+

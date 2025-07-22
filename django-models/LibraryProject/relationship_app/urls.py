@@ -3,10 +3,12 @@ from django.contrib.auth.views import LoginView, LogoutView
 from . import views
 from django.contrib import admin
 from .views import LibraryDetailView, register
+from .views import home_view
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home_view, name='home'),
     path('books/', views.list_book, name='book_list'), 
     path('library/', LibraryDetailView.as_view(), name='library_detail'),
     path('register/', views.register, name='register'),  # formerly signup_view
