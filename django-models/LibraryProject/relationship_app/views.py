@@ -25,10 +25,10 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('/')
+            return redirect('book_list')
     else:
         form = UserCreationForm()
-    return render(request, 'registration/signup.html', {'form': form})
+    return render(request, 'relationship_app/signup.html', {'form': form})
 
 def register(request):  # 👈 renamed from signup_view to register
     if request.method == 'POST':
@@ -36,7 +36,7 @@ def register(request):  # 👈 renamed from signup_view to register
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('/')
+            return redirect('book_list')
     else:
         form = UserCreationForm()
-    return render(request, 'registration/register.html', {'form': form})
+    return render(request, 'relationship_app/register.html', {'form': form})
