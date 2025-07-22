@@ -18,7 +18,7 @@ class LibraryDetailView(DetailView):
     model = Library
     template_name = 'relationship_app/library_detail.html'
     context_object_name = 'library'
-    
+
 def signup_view(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -29,3 +29,14 @@ def signup_view(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+def register(request):  # 👈 renamed from signup_view to register
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('/')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
