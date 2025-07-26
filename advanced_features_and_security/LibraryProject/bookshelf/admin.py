@@ -7,6 +7,7 @@ from .models import CustomUser
 # Register your models here.
 
 
+
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
     fieldsets = UserAdmin.fieldsets + (
