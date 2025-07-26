@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.db import models
 
 # Create your models here.
@@ -51,4 +51,6 @@ class UserProfile(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.role}"
 
-    
+class CustomUser(AbstractUser):
+    date_of_birth = models.CharField(max_length=100)
+    profile_photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
