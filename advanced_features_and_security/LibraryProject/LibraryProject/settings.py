@@ -31,11 +31,19 @@ ALLOWED_HOSTS = []
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
+# Prevent content sniffing and enable additional browser protections
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
+# Redirect all HTTP to HTTPS
 SECURE_SSL_REDIRECT = True
+
+# Use HSTS (HTTP Strict Transport Security)
+SECURE_HSTS_SECONDS = 31536000  # 1 year in seconds
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
 
 #CSP rules
 CSP_DEFAULT_SRC = ("'self'",)
