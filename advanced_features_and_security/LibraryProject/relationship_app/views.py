@@ -10,6 +10,9 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import permission_required
 from .models import UserProfile
 from django.http import HttpResponse
+from .forms import BookForm
+
+
 
 
 # Create your views here.
