@@ -15,7 +15,7 @@ class BookSerializer(serializers.ModelSerializer):
         return value
 
 
-class AuthorSerializer(serializer.ModelSerializer):
+class AuthorSerializer(serializers.ModelSerializer):
     book = BookSerializer(many=True, read_only=True, source='book_set') #Nested books
 
     class Meta: 
