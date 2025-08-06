@@ -6,5 +6,5 @@ class Book(models.Model):
     publication_year = models.DateField(max_length=100)
     author = models.ForeignKe(Author, ondelete=models.CASCADE related_name='book')
 
-class Author(models.Models):
+class Author(models.Model):
     name = models.CharField(max_length=100)
