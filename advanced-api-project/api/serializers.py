@@ -11,7 +11,7 @@ class BookSerializer(serializers.ModelSerializer):
     def validate_date(self, values):  #This method is automatically calls the serializer validation for the publication_year field
         current_year = date.today().year
         if value >current_year:
-            raise serializer.ValidationError("The year does notexist")
+            raise serializers.ValidationError("The year does notexist")
         return value
 
 
