@@ -18,6 +18,17 @@ class BookCreateView(generics.CreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticated]  # Only logged-in users can create
+    # Add filtering, searching, and ordering backends
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+
+    # Enable filtering on these fields
+    filterset_fields = ['title', 'author__name', 'publication_year']
+
+    # Enable search on title and author's name
+    search_fields = ['title', 'author__name']
+
+    # Optional: Allow ordering by title or publication year
+    ordering_fields = ['title', 'publication_year']
 
     def perform_create(self, serializer):
         # Custom logic before saving
