@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import Login
+from django.contrib.auth import login
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -23,9 +23,9 @@ class CustomLoginView(LoginView):
 
 # Logout view (Django built-in)
 class CustomLogoutView(LogoutView):
-    next_page = 'home'  # Redirect after logout
+    next_page = 'base'  # Redirect after logout
 
-def home(request):
+def base(request):
     return redirect(request, 'blog/base.html')
 
 @login_required

@@ -14,9 +14,10 @@ class Post(models.Model):
             return self.title
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=CASCADE)
-    blog = models.TextField(blank=True, null=True)
-    profile_picture  = models.ImageFields(upload_to='profile_pics/', blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True, null=True)
+    profile_picture  = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+
 
     def __str__(self):
             return self.title
