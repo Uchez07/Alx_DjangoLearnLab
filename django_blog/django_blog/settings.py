@@ -29,6 +29,10 @@ ALLOWED_HOSTS = []
 
 STATIC_URL ='/static/'
 
+LOGIN_REDIRECT_URL = 'base'
+LOGOUT_REDIRECT_URL = 'base'
+
+
 # Application definition
 
 INSTALLED_APPS = [
