@@ -48,3 +48,12 @@ def profile(request):
     }
 
     return render(request, 'profile.html', context)
+
+@login_required
+def posts(request):
+    # Example posts list
+    post_list = [
+        {"title": "First Post", "content": "This is the first post."},
+        {"title": "Second Post", "content": "This is the second post."},
+    ]
+    return render(request, "blog/posts.html", {"posts": post_list})
