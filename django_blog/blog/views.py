@@ -26,7 +26,7 @@ class CustomLogoutView(LogoutView):
     next_page = 'base'  # Redirect after logout
 
 def base(request):
-    return redirect(request, 'blog/base.html')
+    return render(request, 'blog/base.html')
 
 @login_required
 def profile(request):
