@@ -12,7 +12,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)  # Log them in immediately after registration
-            return render('base')  # Replace 'home' with your homepage URL name
+            return redirect('base')  # Replace 'home' with your homepage URL name
     else:
         form = CustomUserCreationForm()
     return render(request, 'blog/register.html', {'form': form})
