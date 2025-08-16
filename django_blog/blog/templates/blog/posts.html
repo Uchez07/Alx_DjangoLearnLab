@@ -4,14 +4,24 @@
 
 {% block content %}
 <h2>All Blog Posts</h2>
-
+<div class="mb-3">
+    <a href="{% url 'post-create' %}" class="btn btn-primary">Create New Post</a>
+    <a href="{% url 'posts' %}" class="btn btn-primary">Latest Posts</a>
+    {% if posts %}
+        <a href="{% url 'post-detail' posts.0.pk %}" class="btn btn-primary">First Post</a>
+        <a href="{% url 'post-update' posts.0.pk %}" class="btn btn-primary">Edit Post</a>
+        <a href="{% url 'post-delete' posts.0.pk %}" class="btn btn-primary">Delete Post</a>
+    {% endif %}
+</div>
 {% if posts %}
     <ul>
     {% for post in posts %}
         <li>
-            <h3>{{ post.title }}</h3>
+            <div class="post-card">
+                <h3>{{ post.title }}</h3>
             <p>{{ post.content|truncatewords:30 }}</p>
             <small>By {{ post.author }} on {{ post.created_at|date:"F j, Y" }}</small>
+            </div>
         </li>
     {% endfor %}
     </ul>

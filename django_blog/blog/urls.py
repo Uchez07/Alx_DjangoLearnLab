@@ -2,7 +2,11 @@ from django.urls import path
 from .views import CustomLoginView, CustomLogoutView, CustomUserCreationForm
 from . import views
 from .views import (
-    ListView, CreateView, DeleteView, UpdateView, DetailView
+    PostListView,
+    PostDetailView,
+    PostCreateView,
+    PostUpdateView,
+    PostDeleteView
 )
 
 urlpatterns =[
@@ -12,9 +16,9 @@ urlpatterns =[
     path('logout/', CustomLogoutView.as_view(next_page='blog/base'), name='login'),
     path('profile/', views.profile, name='profile'),
     path('posts/', views.posts, name='posts'),
-    path('posts/', ListView.as_view(), name='posts'),
-    path('post/<int:pk>/', DetailView.as_view(), name='post-detail'),
-    path('post/new/', CreateView.as_view(), name='post-create'),
-    path('post/<int:pk>/update/', UpdateView.as_view(), name='post-update'),
-    path('post/<int:pk>/delete/', DeleteView.as_view(), name='post-delete'),
+    path('posts/', PostListView.as_view(), name='posts'),
+    path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
+    path('post/new/', PostCreateView.as_view(), name='post-create'),
+    path('post/<int:pk>/edit/', PostUpdateView.as_view(), name='post-update'),
+    path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
 ]

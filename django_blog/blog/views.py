@@ -55,11 +55,7 @@ def profile(request):
 
 @login_required
 def posts(request):
-    # Example posts list
-    post_list = [
-        {"title": "First Post", "content": "This is the first post."},
-        {"title": "Second Post", "content": "This is the second post."},
-    ]
+    post_list = Post.objects.all().order_by('-published_date')  # newest first
     return render(request, "blog/posts.html", {"posts": post_list})
 
 class PostListView(ListView):
@@ -72,7 +68,7 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
     template_name = 'blog/post_detail.html'
-    context_object_name = 'posts'
+    context_object_name = 'post'
 
 # Create a new post (only logged-in users)
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -83,6 +79,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user  # set author automatically
         return super().form_valid(form)
+    
+    success_url = reverse_lazy('posts')  # or your desired page
 
 # Update post (only author can edit)
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
