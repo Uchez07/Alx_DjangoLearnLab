@@ -58,45 +58,6 @@ def posts(request):
     post_list = Post.objects.all().order_by('-published_date')  # newest first
     return render(request, "blog/posts.html", {"posts": post_list})
 
-@login_required
-def add_comment(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.author = request.user
-            comment.save()
-            return redirect('post-detail', pk=post.pk)
-    else:
-        form = CommentForm()
-
-    return redirect('post-detail', pk=post.pk)  # fallback
-
-class CommentUpdateView(UpdateView):
-    model = Comment
-    form_class = CommentForm
-    template_name = 'blog/comment_form.html'
-
-    def get_queryset(self):
-        # Only allow comment owner to edit
-        return self.model.objects.filter(author=self.request.user)
-
-    def get_success_url(self):
-        return reverse_lazy('post-detail', kwargs={'pk': self.object.post.pk})
-
-class CommentDeleteView(DeleteView):
-    model = Comment
-    template_name = 'blog/comment_confirm_delete.html'
-
-    def get_queryset(self):
-        # Only allow comment owner to delete
-        return self.model.objects.filter(author=self.request.user)
-
-    def get_success_url(self):
-        return reverse_lazy('post-detail', kwargs={'pk': self.object.post.pk})
 
 
 class PostListView(ListView):
@@ -110,8 +71,6 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'blog/post_detail.html'
     context_object_name = 'post'
-
-# Create a new post (only logged-in users)
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'blog/post_form.html'
@@ -122,8 +81,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
     
     success_url = reverse_lazy('posts')  # or your desired page
-
-# Update post (only author can edit)
+    # Update post (only author can edit)
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     template_name = 'blog/post_form.html'
@@ -136,6 +94,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def test_func(self):
         post = self.get_object()
         return self.request.user == post.author  # Only the author can edit
+
 
 # Delete post (only author can delete)
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

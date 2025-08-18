@@ -53,4 +53,10 @@ class CommentForm(forms.ModelForm):
         labels = {
             'content': ''
         }
-        
+        def clean_content(self):
+            content = self.cleaned_data.get('content')
+            if not content.strip():
+                raise forms.ValidationError("Comment cannot be empty.")
+            if len(content) < 3:
+                raise forms.ValidationError("Comment must be at least 3 characters long.")
+            return content
