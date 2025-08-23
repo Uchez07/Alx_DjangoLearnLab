@@ -25,7 +25,16 @@ class ProfileUpdateForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content']  # No 'author', we'll set that automatically
+        fields = ['title', 'content', 'tags']  # No 'author', we'll set that automatically
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'content': forms.Textarea(attrs={'class': 'form-control'}),
+            'tags': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Add tags separated by commas'
+            }),
+        }
+
 
     def clean_title(self):
         title = self.cleaned_data.get('title')
