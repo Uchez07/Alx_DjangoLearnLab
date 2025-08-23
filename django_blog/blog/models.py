@@ -49,5 +49,5 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class Tag(models.Model):
-    name = models.TextField(max_length=100)
-    post = models.ManyToMany(Post, on_delete =models.CASCADE, related_name="tag")
+    name = models.CharField(max_length=100)
+    post = models.ManyToManyField(Post, related_name="tags")
