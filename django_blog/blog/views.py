@@ -180,6 +180,26 @@ def search_posts(request):
         ).distinct()  # distinct prevents duplicates when searching tags
 
     return render(request, 'blog/search_results.html', {'posts': posts, 'query': query})
+from django.views.generic import ListView
+from django.shortcuts import get_object_or_404
+from .models import Post, Tag
+
+class PostByTagListView(ListView):
+    model = Post
+    template_name = 'blog/posts_by_tag.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        tag_slug = self.kwargs.get('tag_slug')
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        return Post.objects.filter(tags=tag)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        tag_slug = self.kwargs.get('tag_slug')
+        context['tag'] = get_object_or_404(Tag, slug=tag_slug)
+        return context
+
 
 def posts_by_tag(request, tag_name):
     tag = get_object_or_404(Tag, name=tag_name)
