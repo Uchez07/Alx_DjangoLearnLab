@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import CustomLoginView, CustomLogoutView, CustomUserCreationForm, add_comment, CommentUpdateView, CommentDeleteView
 from . import views
+from .views import PostByTagListView, search_posts
 from .views import (
     PostListView,
     PostDetailView,
