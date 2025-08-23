@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Profile, Post, Comment
+from .models import Profile, Post, Comment, Tag
+from taggit.forms import TagWidget
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -27,12 +28,7 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ['title', 'content', 'tags']  # No 'author', we'll set that automatically
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'content': forms.Textarea(attrs={'class': 'form-control'}),
-            'tags': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Add tags separated by commas'
-            }),
+            'tags': TagWidget(),  # ✅ This adds the tag input widget
         }
 
 
