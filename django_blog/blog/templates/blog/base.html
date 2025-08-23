@@ -17,6 +17,10 @@
                 <li><a href="{% url 'login' %}">Login</a></li>
                 <li><a href="{% url 'register' %}">Register</a></li>
                 <li><a href="{% url 'profile' %}">Profile</a></li>
+                <form method="GET" action="{% url 'search-posts' %}" class="d-flex">
+    <input type="text" name="q" placeholder="Search posts..." class="form-control me-2" value="{{ request.GET.q }}">
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
                 
             </ul>
         </nav>
