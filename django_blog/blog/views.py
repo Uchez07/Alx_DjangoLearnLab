@@ -64,7 +64,7 @@ class PostListView(ListView):
     model = Post
     template_name = 'blog/post_list.html'
     context_object_name = 'posts'
-    ordering = ['-created_at']  # newest first
+    ordering = ["-published_date"]  # newest first
 
 # Show a single post
 class PostDetailView(DetailView):
